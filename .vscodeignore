@@ -1,0 +1,21 @@
+# What a build makes from what is packaged, or is only of use while developing.
+src/**
+tsconfig.json
+.gitignore
+.gitattributes
+**/*.map
+**/tsconfig.tsbuildinfo
+
+# Written while developing: a sandbox profile holds logs and whatever was typed into the
+# editor it ran, and belongs in nobody's extension.
+.vscode-sandbox/**
+.vscode-test/**
+*.vsix
+
+# The manual is published as pages rather than carried in the extension, and what builds it
+# is of no use to a reader who installed it.
+docs/**
+mkdocs.yml
+build/**
+.github/**
+tools/**

@@ -1,0 +1,217 @@
+/* The look of the extension's forms: the editor's own colours, and a master-detail layout. */
+
+body {
+    margin: 0;
+    padding: 0 0 48px;
+    font-family: var(--vscode-font-family);
+    font-size: var(--vscode-font-size);
+    color: var(--vscode-foreground);
+    background: var(--vscode-editor-background);
+}
+
+header {
+    padding: 12px 16px 0;
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.hint {
+    margin: 4px 0 0;
+    color: var(--vscode-descriptionForeground);
+}
+
+nav.tabs {
+    display: flex;
+    gap: 2px;
+    padding: 12px 16px 0;
+    border-bottom: 1px solid var(--vscode-panel-border);
+}
+
+nav.tabs button {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--vscode-foreground);
+    padding: 6px 12px;
+    cursor: pointer;
+    font: inherit;
+}
+
+nav.tabs button.chosen {
+    border-bottom-color: var(--vscode-focusBorder);
+}
+
+section.panes {
+    display: grid;
+    grid-template-columns: minmax(220px, 1fr) 2fr;
+    gap: 0;
+    height: calc(100vh - 190px);
+}
+
+/* A tab that lists nothing gives its whole width to what it does show. */
+section.panes.single {
+    grid-template-columns: 1fr;
+}
+
+section.panes.single .master {
+    display: none;
+}
+
+.master {
+    overflow: auto;
+    border-right: 1px solid var(--vscode-panel-border);
+}
+
+.master ul {
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+}
+
+.master li {
+    padding: 4px 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.master li:hover {
+    background: var(--vscode-list-hoverBackground);
+}
+
+.master li.chosen {
+    background: var(--vscode-list-activeSelectionBackground);
+    color: var(--vscode-list-activeSelectionForeground);
+}
+
+/* An option this level decides, rather than inherits, is the point of the page. */
+.master li.stated .name {
+    font-weight: 700;
+}
+
+.master li .value {
+    color: var(--vscode-descriptionForeground);
+    white-space: nowrap;
+}
+
+.master li.chosen .value {
+    color: inherit;
+}
+
+.detail {
+    overflow: auto;
+    padding: 12px 16px;
+}
+
+.detail h2 {
+    margin: 0 0 4px;
+    font-size: 1.05em;
+}
+
+.detail p.description {
+    color: var(--vscode-descriptionForeground);
+    white-space: pre-wrap;
+    margin: 0 0 12px;
+}
+
+.detail label.choice {
+    display: block;
+    padding: 4px 0;
+    cursor: pointer;
+}
+
+.detail label.choice .what {
+    color: var(--vscode-descriptionForeground);
+    display: block;
+    margin-left: 22px;
+    white-space: pre-wrap;
+}
+
+.detail input[type='text'],
+.detail input[type='number'] {
+    background: var(--vscode-input-background);
+    color: var(--vscode-input-foreground);
+    border: 1px solid var(--vscode-input-border, transparent);
+    padding: 4px 6px;
+    font: inherit;
+    min-width: 220px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--vscode-editor-background);
+    border-top: 1px solid var(--vscode-panel-border);
+}
+
+button {
+    background: var(--vscode-button-secondaryBackground);
+    color: var(--vscode-button-secondaryForeground);
+    border: none;
+    padding: 6px 14px;
+    cursor: pointer;
+    font: inherit;
+}
+
+button.primary {
+    background: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+}
+
+button:hover {
+    background: var(--vscode-button-hoverBackground);
+}
+
+.field {
+    margin-bottom: 20px;
+}
+
+.field h2 {
+    margin: 0 0 2px;
+}
+
+.row {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.row input[type='text'] {
+    flex: 1;
+    background: var(--vscode-input-background);
+    color: var(--vscode-input-foreground);
+    border: 1px solid var(--vscode-input-border, transparent);
+    padding: 4px 6px;
+    font: inherit;
+}
+
+.listActions {
+    display: flex;
+    gap: 6px;
+    padding: 6px 12px;
+    border-top: 1px solid var(--vscode-panel-border);
+}
+
+p.problem {
+    margin: 4px 0 0;
+}
+
+p.problem.error {
+    color: var(--vscode-errorForeground);
+}
+
+p.problem.warning {
+    color: var(--vscode-editorWarning-foreground, var(--vscode-descriptionForeground));
+}

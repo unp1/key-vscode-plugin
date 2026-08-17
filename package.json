@@ -1,0 +1,518 @@
+{
+  "name": "key-ide",
+  "displayName": "KeY",
+  "description": "Verify Java methods with the KeY theorem prover",
+  "version": "0.1.0",
+  "publisher": "key-project",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unp1/key-vscode-plugin"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "workspaceContains:.key/settings.json",
+    "onLanguage:java"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "key",
+          "title": "KeY",
+          "icon": "media/key.svg"
+        }
+      ],
+      "panel": [
+        {
+          "id": "keyPanel",
+          "title": "KeY",
+          "icon": "media/key.svg"
+        }
+      ]
+    },
+    "views": {
+      "key": [
+        {
+          "id": "key.obligations",
+          "name": "Proof Obligations"
+        },
+        {
+          "id": "key.dependencies",
+          "name": "Dependencies"
+        }
+      ],
+      "keyPanel": [
+        {
+          "id": "key.results",
+          "name": "Verification",
+          "type": "webview"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "key.verify",
+        "title": "Verify with KeY",
+        "icon": "$(play)"
+      },
+      {
+        "command": "key.replay",
+        "title": "Replay Saved Proofs with KeY",
+        "icon": "$(debug-restart)"
+      },
+      {
+        "command": "key.removeProof",
+        "title": "Remove Saved Proof",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "key.openProof",
+        "title": "Open Proof in KeY"
+      },
+      {
+        "command": "key.goToSource",
+        "title": "Go to Source"
+      },
+      {
+        "command": "key.showDependencies",
+        "title": "Show Dependencies"
+      },
+      {
+        "command": "key.verifyDependencies",
+        "title": "Verify Dependencies",
+        "icon": "$(play)"
+      },
+      {
+        "command": "key.options",
+        "title": "KeY: Proof Options"
+      },
+      {
+        "command": "key.projectOptions",
+        "title": "KeY: Proof Options of the Project",
+        "icon": "$(settings-gear)"
+      },
+      {
+        "command": "key.chooseProver",
+        "title": "KeY: Select Single Core or Multi-Core Prover"
+      },
+      {
+        "command": "key.pruneTrash",
+        "title": "KeY: Empty the Trash of Replaced Proofs"
+      },
+      {
+        "command": "key.cleanUpOptions",
+        "title": "KeY: Clean Up Settings of Proof Obligations That No Longer Exist"
+      },
+      {
+        "command": "key.verifyAll",
+        "title": "KeY: Verify Everything",
+        "icon": "$(run-all)"
+      },
+      {
+        "command": "key.replayAll",
+        "title": "KeY: Replay Every Saved Proof",
+        "icon": "$(debug-restart)"
+      },
+      {
+        "command": "key.refresh",
+        "title": "KeY: Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "key.clearResults",
+        "title": "KeY: Clear the Verification View",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "key.restart",
+        "title": "KeY: Restart KeY",
+        "icon": "$(debug-restart)"
+      },
+      {
+        "command": "key.editContexts",
+        "title": "KeY: Edit Contexts"
+      },
+      {
+        "command": "key.validateConfiguration",
+        "title": "KeY: Validate Configuration"
+      },
+      {
+        "command": "key.showConfiguration",
+        "title": "KeY: Open Configuration File"
+      },
+      {
+        "command": "key.stop",
+        "title": "KeY: Stop"
+      },
+      {
+        "command": "key.settingDifferences",
+        "title": "Show Setting Differences"
+      },
+      {
+        "command": "key.toggleProver",
+        "title": "KeY: Switch Between Single Core and Multi-Core Prover"
+      },
+      {
+        "command": "key.verifyOnSaveOn",
+        "title": "KeY: Verify on Save is On",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "key.verifyOnSaveOff",
+        "title": "KeY: Verify on Save is Off",
+        "icon": "$(eye-closed)"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "key.verify",
+          "when": "resourceExtname == .java",
+          "group": "keY@1"
+        },
+        {
+          "command": "key.replay",
+          "when": "resourceExtname == .java",
+          "group": "keY@2"
+        },
+        {
+          "command": "key.removeProof",
+          "when": "resourceExtname == .java",
+          "group": "keY@3"
+        },
+        {
+          "command": "key.openProof",
+          "when": "resourceExtname == .java",
+          "group": "keY@4"
+        },
+        {
+          "command": "key.showDependencies",
+          "when": "resourceExtname == .java",
+          "group": "keY@5"
+        },
+        {
+          "command": "key.options",
+          "when": "resourceExtname == .java",
+          "group": "keY@6"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "key.verifyAll",
+          "when": "view == key.obligations || view == key.dependencies || view == key.results",
+          "group": "navigation@1"
+        },
+        {
+          "command": "key.replayAll",
+          "when": "view == key.obligations || view == key.dependencies || view == key.results",
+          "group": "navigation@2"
+        },
+        {
+          "command": "key.verifyOnSaveOn",
+          "when": "(view == key.obligations || view == key.dependencies || view == key.results) && key.verifyOnSave",
+          "group": "navigation@4"
+        },
+        {
+          "command": "key.verifyOnSaveOff",
+          "when": "(view == key.obligations || view == key.dependencies || view == key.results) && !key.verifyOnSave",
+          "group": "navigation@4"
+        },
+        {
+          "command": "key.refresh",
+          "when": "view == key.obligations || view == key.dependencies || view == key.results",
+          "group": "navigation@3"
+        },
+        {
+          "command": "key.chooseProver",
+          "when": "view == key.obligations || view == key.dependencies || view == key.results",
+          "group": "1_settings@1"
+        },
+        {
+          "command": "key.toggleProver",
+          "when": "view == key.obligations || view == key.dependencies || view == key.results",
+          "group": "1_settings@2"
+        },
+        {
+          "command": "key.projectOptions",
+          "when": "view == key.obligations || view == key.dependencies || view == key.results",
+          "group": "1_settings@3"
+        },
+        {
+          "command": "key.editContexts",
+          "when": "view == key.obligations || view == key.dependencies || view == key.results",
+          "group": "1_settings@4"
+        },
+        {
+          "command": "key.pruneTrash",
+          "when": "view == key.obligations || view == key.dependencies || view == key.results",
+          "group": "1_settings@5"
+        },
+        {
+          "command": "key.cleanUpOptions",
+          "when": "view == key.obligations || view == key.dependencies || view == key.results",
+          "group": "1_settings@6"
+        },
+        {
+          "command": "key.clearResults",
+          "when": "view == key.obligations || view == key.dependencies || view == key.results",
+          "group": "2_view@1"
+        },
+        {
+          "command": "key.verifyDependencies",
+          "when": "view == key.dependencies",
+          "group": "navigation@5"
+        },
+        {
+          "command": "key.restart",
+          "when": "view == key.obligations || view == key.dependencies || view == key.results",
+          "group": "3_bridge@1"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "key.verify",
+          "when": "view == key.obligations",
+          "group": "inline@1"
+        },
+        {
+          "command": "key.verify",
+          "when": "view == key.obligations",
+          "group": "1_prove@1"
+        },
+        {
+          "command": "key.replay",
+          "when": "view == key.obligations",
+          "group": "1_prove@2"
+        },
+        {
+          "command": "key.removeProof",
+          "when": "view == key.obligations && viewItem == keyObligationProved",
+          "group": "1_prove@3"
+        },
+        {
+          "command": "key.openProof",
+          "when": "view == key.obligations && viewItem =~ /keyObligation/",
+          "group": "2_look@1"
+        },
+        {
+          "command": "key.goToSource",
+          "when": "view == key.obligations && viewItem =~ /keyObligation/",
+          "group": "2_look@2"
+        },
+        {
+          "command": "key.showDependencies",
+          "when": "view == key.obligations && viewItem =~ /keyObligation/",
+          "group": "2_look@3"
+        },
+        {
+          "command": "key.options",
+          "when": "view == key.obligations",
+          "group": "3_settings@1"
+        },
+        {
+          "command": "key.cleanUpOptions",
+          "when": "view == key.obligations && viewItem == keyContext",
+          "group": "3_settings@2"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "key.verify",
+          "when": "false"
+        },
+        {
+          "command": "key.replay",
+          "when": "false"
+        },
+        {
+          "command": "key.removeProof",
+          "when": "false"
+        },
+        {
+          "command": "key.openProof",
+          "when": "false"
+        },
+        {
+          "command": "key.goToSource",
+          "when": "false"
+        },
+        {
+          "command": "key.showDependencies",
+          "when": "false"
+        },
+        {
+          "command": "key.options",
+          "when": "false"
+        },
+        {
+          "command": "key.settingDifferences",
+          "when": "false"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "key.verify",
+          "when": "resourceExtname == .java || explorerResourceIsFolder",
+          "group": "keY@1"
+        },
+        {
+          "command": "key.replay",
+          "when": "resourceExtname == .java || explorerResourceIsFolder",
+          "group": "keY@2"
+        },
+        {
+          "command": "key.removeProof",
+          "when": "resourceExtname == .java || explorerResourceIsFolder",
+          "group": "keY@3"
+        },
+        {
+          "command": "key.openProof",
+          "when": "resourceExtname == .java || explorerResourceIsFolder",
+          "group": "keY@4"
+        },
+        {
+          "command": "key.showDependencies",
+          "when": "resourceExtname == .java || explorerResourceIsFolder",
+          "group": "keY@5"
+        },
+        {
+          "command": "key.options",
+          "when": "resourceExtname == .java || explorerResourceIsFolder",
+          "group": "keY@6"
+        }
+      ],
+      "webview/context": [
+        {
+          "command": "key.verify",
+          "when": "webviewSection == 'keyRow'",
+          "group": "keY@1"
+        },
+        {
+          "command": "key.replay",
+          "when": "webviewSection == 'keyRow'",
+          "group": "keY@2"
+        },
+        {
+          "command": "key.removeProof",
+          "when": "webviewSection == 'keyRow'",
+          "group": "keY@3"
+        },
+        {
+          "command": "key.openProof",
+          "when": "webviewSection == 'keyRow'",
+          "group": "keY@4"
+        },
+        {
+          "command": "key.goToSource",
+          "when": "webviewSection == 'keyRow'",
+          "group": "keY@5"
+        },
+        {
+          "command": "key.showDependencies",
+          "when": "webviewSection == 'keyRow'",
+          "group": "keY@6"
+        },
+        {
+          "command": "key.options",
+          "when": "webviewSection == 'keyRow'",
+          "group": "keY@7"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "KeY",
+      "properties": {
+        "key.keyJar": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Path to the KeY distribution, a `key-*-exe.jar`. KeY is not bundled with this extension."
+        },
+        "key.bridgeJar": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Path to the shared KeY component, a `key-ide-common-*-all.jar`."
+        },
+        "key.javaHome": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "JDK 21 or later used to run KeY. Empty uses `JAVA_HOME`, then `java` from the path."
+        },
+        "key.keyHome": {
+          "type": "string",
+          "enum": [
+            "project",
+            "user"
+          ],
+          "enumDescriptions": [
+            "Project (.key/tool), starts from KeY's defaults",
+            "User (~/.key), shared with KeY itself"
+          ],
+          "default": "project",
+          "markdownDescription": "Where the KeY this extension starts keeps its settings, logs and caches."
+        },
+        "key.verifyOnSave": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Replay a context's proofs when its sources are saved, and prove what is left unproved."
+        },
+        "key.transport": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "tcp"
+          ],
+          "default": "auto",
+          "markdownDescription": "How to reach the bridge. `auto` uses a Unix domain socket, and a loopback port on Windows, where Node reaches a local socket only as a named pipe. `tcp` forces a loopback port everywhere."
+        },
+        "key.trashPolicy": {
+          "type": "string",
+          "enum": [
+            "never",
+            "emptyOnStart",
+            "belowSize",
+            "olderThan"
+          ],
+          "enumDescriptions": [
+            "Keep everything",
+            "Empty at the start of a session",
+            "Delete the oldest until the trash is below key.trashMegabytes",
+            "Delete what is older than key.trashDays"
+          ],
+          "default": "never",
+          "markdownDescription": "What becomes of a proof that a rerun replaced. They are kept in `<proofs>/.trash`."
+        },
+        "key.trashMegabytes": {
+          "type": "number",
+          "default": 200,
+          "markdownDescription": "The size the trash is kept below, for `key.trashPolicy` `belowSize`."
+        },
+        "key.trashDays": {
+          "type": "number",
+          "default": 30,
+          "markdownDescription": "The age at which a replaced proof is deleted, for `key.trashPolicy` `olderThan`."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "npx --yes @vscode/vsce package",
+    "smoke": "node out/smoke.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.6.0"
+  },
+  "dependencies": {
+    "vscode-jsonrpc": "^8.2.0"
+  }
+}

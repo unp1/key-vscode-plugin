@@ -1,0 +1,40 @@
+site_name: KeY for VS Code
+site_description: Verify Java methods with the KeY theorem prover from VS Code and VS Codium
+docs_dir: docs
+site_dir: build/site
+repo_url: https://github.com/unp1/key-vscode-plugin
+edit_uri: ""
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Dark theme
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Light theme
+
+nav:
+  - Home: index.md
+  - Getting started:
+      - Installing: install.md
+      - A first project: first-project.md
+  - The interface: interface.md
+  - Settings: settings.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - tables
+  - toc:
+      permalink: true
