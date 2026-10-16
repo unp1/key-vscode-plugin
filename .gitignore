@@ -1,0 +1,15 @@
+# Installed by npm install, and written by the TypeScript compiler.
+node_modules/
+out/
+
+# Packaged extensions, built by vsce package.
+*.vsix
+
+# IDE and OS
+.vscode-test/
+.DS_Store
+# Built documentation.
+build/
+
+# The profile a test run of the extension uses, made by hand and thrown away.
+.vscode-sandbox/
