@@ -1,0 +1,13 @@
+# Let git decide what is text, so a Windows checkout is not diffed against a Unix one.
+* text=auto
+
+# The Gradle wrapper is a shell script even on a Windows checkout, and its Windows
+# counterpart is a batch file, which cmd.exe reads only with CRLF.
+gradlew text eol=lf
+*.sh text eol=lf
+*.bat text eol=crlf
+
+# Binary, so git neither converts line endings nor tries to merge them.
+*.jar binary
+*.png binary
+*.proof -text
